@@ -12,6 +12,7 @@
 #include <chrono>
 #include <thread>
 #include <functional>
+#include <iomanip>
 
 using std::function;
 
@@ -33,6 +34,10 @@ float rk4(function<float(float, float)> f, float t, float x, float duration) {
 
 float euler(function<float(float, float)> f, float t, float x, float duration) {
   return f(t,x) * duration + x;
+}
+
+float velVerlet(function<float(float, float)> f, float t, float x, float duration) {
+  return x + (f(t,x) * duration) + (0.5f * -9.8f * duration * duration);
 }
 
 /*
@@ -67,7 +72,8 @@ int main() {
     // update using euler
 	eulerposition = euler(f, time, eulerposition, (1.0f / frequency));
 
-	//update using Verlet
+	//update using Velocity Verlet
+	verletposition = velVerlet(f, time, eulerposition, (1.0f / frequency));
 
     // update time.
     time += (1.0f / frequency);
@@ -82,9 +88,16 @@ int main() {
 
   // output.
 	std::cout << "The expected position is: " << expectedY << std::endl << std::endl;
-  	std::cout << "The final position via RK4 is: " << rk4position << std::endl;
+ 
   	std::cout << "The final position via Euler is: " << eulerposition << std::endl;
+	std::cout << "The final position via Velocity Verlet is: " << verletposition << std::endl;
+	std::cout << "The final position via RK4 is: " << rk4position << std::endl << std::endl;
   
-  	std::cout << "The difference for RK4 is: " << rk4position - expectedY << std::endl;
 	std::cout << "The difference for Euler is: " << eulerposition - expectedY << std::endl;
+	std::cout << "The difference for Velocity Verlet is: " << verletposition - expectedY << std::endl;
+  	std::cout << "The difference for RK4 is: " << rk4position - expectedY << std::endl << "TIME" << (1.0f / frequency) << std::endl;
+
+
+
+
 }
