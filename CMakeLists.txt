@@ -35,3 +35,4 @@ add_library(spengine SHARED
 target_link_libraries(spengine GL)
 target_link_libraries(spengine GLEW)
 target_link_libraries(spengine GLU)
+target_link_libraries(spengine X11)

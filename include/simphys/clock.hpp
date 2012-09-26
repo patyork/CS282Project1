@@ -5,6 +5,12 @@ simphys::Clock<Res>::Clock(Res startTime)
   : paused{false}
   , timeScale{1.0f}
   , ticks{startTime} {  }
+  
+template<typename Res>
+simphys::Clock<Res>::Clock(Res startTime, float newScale) 
+  : paused{false}
+  , timeScale{newScale}
+  , ticks{startTime} {  }
 
 template<typename Res>
 void simphys::Clock<Res>::setScale(float newScale) {
