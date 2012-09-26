@@ -73,7 +73,7 @@ int main() {
 	eulerposition = euler(f, time, eulerposition, (1.0f / frequency));
 
 	//update using Velocity Verlet
-	verletposition = velVerlet(f, time, eulerposition, (1.0f / frequency));
+	verletposition = velVerlet(f, time, verletposition, (1.0f / frequency));
 
     // update time.
     time += (1.0f / frequency);
