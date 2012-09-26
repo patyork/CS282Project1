@@ -35,7 +35,6 @@ namespace simphys {
       zero.
     */
     Clock(Res startTime);
-    Clock(Res startTime, float);
 
     // getter and setter for timeScale
     void setScale(float newScale);

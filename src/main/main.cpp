@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
   simphys::SimEngine sim;
 
   auto clock_ptr = std::make_shared< simphys::Clock<fseconds> >(fseconds{0.0f});
-  if( argc > 1 ) clock_ptr = std::make_shared< simphys::Clock<fseconds> >(fseconds{0.0f}, atof(argv[1]));
+  if( argc > 1 ) clock_ptr->setScale(atof(argv[1]));
   sim.setClock(clock_ptr);
 
   // create a world to simulate
