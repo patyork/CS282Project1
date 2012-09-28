@@ -19,7 +19,13 @@ namespace simphys {
 
     // current position
     vec3 pos;
-
+    
+    //first time flag
+    bool initial;
+    
+    //previous position
+    vec3 prvPos;
+    
     // current velocity
     vec3 vel;
 
@@ -41,6 +47,7 @@ namespace simphys {
     
     // setters
     void setPosition(const vec3& newPos);
+    void setPrvPosition(const vec3& newPos);
     void setVelocity(const vec3& newVel);
     void setAcceleration(const vec3& newAcc);
     void setDamping(float d);
@@ -48,6 +55,7 @@ namespace simphys {
 
     // getters
     vec3 getPosition() const;
+    vec3 getPrvPosition() const;
     vec3 getVelocity() const;
     vec3 getAcceleration() const;
     float getDamping() const;
