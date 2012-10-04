@@ -3,6 +3,8 @@
 
 #include <memory>
 #include <chrono>
+#include "simphys/force_generator.h"
+#include <vector>
 
 namespace simphys {
 
@@ -11,10 +13,13 @@ namespace simphys {
   
   typedef std::chrono::duration<float, std::ratio<1,1> > fseconds;
 
+  typedef std::vector< std::pair<shared_ptr<ForceGenerator>, 
+    shared_ptr<Particle> > > ForceRegistry;
+
   class PhysicsEngine {
   private:
     shared_ptr<SimWorld> sw;
-
+    ForceRegistry reg;
     fseconds lastTick;
 
   public:
@@ -28,6 +33,9 @@ namespace simphys {
 
     void setSimWorld(shared_ptr<SimWorld> simworld);
     shared_ptr<SimWorld> getSimWorld() const;
+
+    void addForcePair(shared_ptr<ForceGenerator> fg, shared_ptr<Particle> p);
+
   };
 
 }

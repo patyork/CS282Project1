@@ -84,6 +84,10 @@ namespace simphys {
       Set the clock.
     */
     void setClock(std::shared_ptr<Clock<fseconds> > clock);
+
+	PhysicsEngine* getPhysicsEngine() {
+      return &pe;
+    }
     
   };
 
