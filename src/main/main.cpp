@@ -46,18 +46,15 @@ int main(int argc, char **argv) {
   auto objState = testObject.getState();
   objState->setPosition(simphys::vec3{10, 20, 0});
   objState->setVelocity(simphys::vec3{40.0, 60.0, 0});
-  objState->setAcceleration(simphys::vec3{0, 0, 0});
+  objState->setDrag(0.8f);
 
   //gravity generator
-
   auto grav = std::make_shared<simphys::GravityForce>(gravity);
-
   (sim.getPhysicsEngine())->addForcePair(grav, objState);
 
- //wind generator
-	auto winds = std::make_shared<simphys::WindForce>(wind);
-
-   (sim.getPhysicsEngine())->addForcePair(winds, objState);
+  //wind generator
+  auto winds = std::make_shared<simphys::WindForce>(wind);
+  (sim.getPhysicsEngine())->addForcePair(winds, objState);
 
   // add object to the world.
   world_ptr->add(obj_ptr);

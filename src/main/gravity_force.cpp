@@ -19,15 +19,6 @@ namespace simphys {
   }
 
   void GravityForce::update(shared_ptr<Particle> p, fsecond dt) {
-
-     
-/*
-    //auto dir = p->getPosition() - *accel;
-    auto dir = p->getPosition();
-    auto norm = dir.norm();
-    */
-	
-
     p->applyForce(accel*p->getMass());
   }  
 

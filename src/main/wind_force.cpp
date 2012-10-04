@@ -19,9 +19,7 @@ namespace simphys {
   }
 
   void WindForce::update(shared_ptr<Particle> p, fsecond dt) {
-
-
-    p->applyForce(accel*p->getMass());
+    p->applyForce(accel*p->getMass()*p->getDrag());
   }  
 
 }

@@ -1,4 +1,5 @@
 #include "simphys/particle.h"
+#include <iostream>
 
 namespace simphys {
 
@@ -10,7 +11,8 @@ namespace simphys {
     , acc{0.0f, 0.0f, 0.0f}
     , accumulatedForces{0.0f, 0.0f, 0.0f}
     , damping{1.0f}
-    , invMass{1.0f} { }
+    , invMass{1.0f}
+    , drag{0.8f} { }
 
   void Particle::setPosition(const vec3& newPos) {
     pos = newPos;
@@ -32,8 +34,13 @@ namespace simphys {
   }
 
   void Particle::setMass(float m) {
-    // TODO - decide if this is reasonable. Error handling?
-    invMass = 1.0f / m;
+    if(m > 0 )
+      invMass = 1.0f / m;
+  }
+
+  void Particle::setDrag(float d)
+  {
+    drag = d;
   }
 
   vec3 Particle::getPosition() const {
@@ -59,32 +66,37 @@ namespace simphys {
   float Particle::getMass() const {
     return 1.0f / invMass;
   }
+  
+  float Particle::getDrag() const
+  {
+    return drag;
+  }
 
   void Particle::integrate(fseconds duration) {
+
+    vec3 resultantAcc = acc;
+    resultantAcc = resultantAcc + (invMass * accumulatedForces);
+    acc = resultantAcc;
  
-      vec3 placeholder;
+    vec3 placeholder;
     // don't move objects that have "infinite mass."
     if (invMass <= 0.0f) {
       return;
     }
 
     // update position using Verlet integration
-  /*  if(initial){
-     prvPos=pos;   
+    if(initial){
+      prvPos=pos;   
     
-    pos = pos + duration.count() * vel+.5f*acc*duration.count()*duration.count();
+      pos = pos + duration.count() * vel+.5f*acc*duration.count()*duration.count();
 
-    initial = false;
+      initial = false;
     }
     else{
-       
         placeholder = pos;
         pos = 2.0f*pos-prvPos+acc*duration.count()*duration.count();
         prvPos = placeholder;
-    }  */
- pos = pos + duration.count() * vel;
-    vec3 resultantAcc = acc;
-    resultantAcc = resultantAcc + (invMass * accumulatedForces);
+    }  
 
     // update velocity using Euler integration
     vel = vel + duration.count() * resultantAcc;
@@ -93,7 +105,6 @@ namespace simphys {
     vel = vel * damping;
 
     clearForces();
-
   }
 
   void Particle::clearForces() {

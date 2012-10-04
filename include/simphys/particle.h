@@ -41,6 +41,9 @@ namespace simphys {
     // 1.0f / mass
     float invMass;
 
+    // Drag Coefficient
+    float drag;
+
   public:
 
     Particle();
@@ -52,6 +55,7 @@ namespace simphys {
     void setAcceleration(const vec3& newAcc);
     void setDamping(float d);
     void setMass(float m);
+    void setDrag(float d);
 
     // getters
     vec3 getPosition() const;
@@ -59,7 +63,8 @@ namespace simphys {
     vec3 getVelocity() const;
     vec3 getAcceleration() const;
     float getDamping() const;
-    float getMass() const;    
+    float getMass() const;
+    float getDrag() const;
 
     // Update the position and velocity of this particle.
     void integrate(fseconds duration);

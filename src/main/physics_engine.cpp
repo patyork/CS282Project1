@@ -15,26 +15,22 @@ namespace simphys {
 
     if (dt - lastTick > fseconds{0.0}) {
       lastTick = dt;
-     auto objects = sw->getObjects();
-    //  for (auto& obj : objects) {
-	//	auto p1 = obj->getState();
+      auto objects = sw->getObjects();
 
-		for (auto& r : reg) {
-			auto fg = r.first;
-			auto p2 = r.second;
+
+	 for (auto& r : reg) {
+	   auto fg = r.first;
+	   auto p2 = r.second;
 	
-	// apply the gravity force.
-	fg->update(p2, dt);
+	  // apply the generated forces
+	  fg->update(p2, dt);
 
-	// really cheap way of testing for collisions with ground.
-	if (p2->getPosition().getY() > 0.0f) 
-	  p2->integrate(dt);
-
-
-    //  }
-	}	
-    } 
-  }
+	  // really cheap way of testing for collisions with ground.
+	  if (p2->getPosition().getY() > 0.0f) 
+	    p2->integrate(dt);
+	 } // end for
+    } //end if
+  } // end tick
 
   void PhysicsEngine::setSimWorld(shared_ptr<SimWorld> simworld) {
     sw = simworld;
@@ -46,9 +42,8 @@ namespace simphys {
 
 
 
-void PhysicsEngine::addForcePair(shared_ptr<ForceGenerator> fg, shared_ptr<Particle> p) {
+  void PhysicsEngine::addForcePair(shared_ptr<ForceGenerator> fg, shared_ptr<Particle> p) {
     reg.push_back(std::make_pair(fg, p));
-
-
   }
-}
+
+} //end namespace
