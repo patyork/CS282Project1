@@ -21,9 +21,9 @@ int main(int argc, char **argv) {
 
 
   //define gravity
-	simphys::vec3 gravity{0.0f, -10.8f, 0.0f};
+	simphys::vec3 gravity{0.0f, -9.81f, 0.0f};
   //define wind
-	simphys::vec3 wind{-5.0f, 0.0f, 0.0f};
+	simphys::vec3 wind{-1.0f, 0.0f, 0.0f};
 
   // create a simulator
   simphys::SimEngine sim;
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
   auto obj_ptr = std::make_shared<simphys::SimObject2D>(testObject);
   auto objState = testObject.getState();
   objState->setPosition(simphys::vec3{10, 20, 0});
-  objState->setVelocity(simphys::vec3{40.0, 60.0, 0});
+  objState->setVelocity(simphys::vec3{40.0, 100.0, 0});
   objState->setDrag(0.8f);
 
   //gravity generator

@@ -73,10 +73,6 @@ namespace simphys {
   }
 
   void Particle::integrate(fseconds duration) {
-
-    vec3 resultantAcc = acc;
-    resultantAcc = resultantAcc + (invMass * accumulatedForces);
-    acc = resultantAcc;
  
     vec3 placeholder;
     // don't move objects that have "infinite mass."
@@ -84,6 +80,10 @@ namespace simphys {
       return;
     }
 
+    // update position using Euler integration
+    pos = pos + duration.count() * vel;
+
+    /* VERLET Integration
     // update position using Verlet integration
     if(initial){
       prvPos=pos;   
@@ -96,7 +96,12 @@ namespace simphys {
         placeholder = pos;
         pos = 2.0f*pos-prvPos+acc*duration.count()*duration.count();
         prvPos = placeholder;
-    }  
+    } 
+	*/
+
+    vec3 resultantAcc = acc;
+    resultantAcc = resultantAcc + (invMass * accumulatedForces);
+    acc = resultantAcc;
 
     // update velocity using Euler integration
     vel = vel + duration.count() * resultantAcc;
